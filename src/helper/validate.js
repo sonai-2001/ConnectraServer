@@ -11,7 +11,22 @@ const validateSignUp=(signUpData)=>{
         }
 }
 
+const validateSignIn=(data)=>{
+     const {email,password}=data
+     if(!email || !password){
+        throw new Error("All fields are required")
+     }
+     const allowed=['email','password']
+
+     const camedDataFields=Object.keys(data)
+      const isValid=camedDataFields.every(field=>allowed.includes(field))
+      if(!isValid){
+        throw new Error("Invalid Data")
+      }
+}
+
 
 module.exports={
-    validateSignUp
+    validateSignUp,
+    validateSignIn
 }
