@@ -25,7 +25,7 @@ const  signIn=async(req,res)=>{
              const data= req.body
          validateSignIn(data)
         const token= await loginUser(data)
-        res.cookie("token",token)
+        res.cookie("token",token,{httpOnly:true})
         res.json({
             success:true,
             message:"User logged in successfully"
