@@ -1,9 +1,9 @@
 const express=require('express')
 const profileRoutes= express.Router()
 const userAuth =require('../middleware/userAuth')
-const { profileGet } = require('../controllers/profile.controller')
+const { getProfileController, updateProfileController } = require('../controllers/profile.controller')
 
-profileRoutes.get("/",userAuth,profileGet)
-// profileRoutes.patch("/")
+profileRoutes.get("/",userAuth,getProfileController)
+profileRoutes.patch("/",userAuth,updateProfileController)
 
 module.exports=profileRoutes

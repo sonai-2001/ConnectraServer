@@ -1,4 +1,5 @@
 const validateSignUp=(signUpData)=>{
+    console.log(signUpData)
         const {first_name,last_name,email,password}=signUpData
         if(!first_name || !last_name || !email || !password){
             throw new Error("All fields are required")
@@ -26,7 +27,36 @@ const validateSignIn=(data)=>{
 }
 
 
+const validateUpdateProfile=(data)=>{
+    const allowed = [
+        "profileImage",
+        "bannerImage",
+        "proffession",
+        "address",
+        "phone",
+        "about",
+        "website",
+        "github",
+        "linkedin",
+        "isNewUser",
+        "skills",
+        "education",
+        "experience"
+      ];
+
+      const camedDataFields=Object.keys(data)
+      const isValid=camedDataFields.every(field=>allowed.includes(field))
+      if(!isValid){
+        throw new Error("Invalid Data")
+      }
+      
+}
+
+
+
+
 module.exports={
     validateSignUp,
-    validateSignIn
+    validateSignIn,
+    validateUpdateProfile
 }

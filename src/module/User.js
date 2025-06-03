@@ -19,24 +19,40 @@ const userSchema = new mongoose.Schema(
     },
     profileImage: {
       type: String,
+      default: "",
     },
     bannerImage: {
       type: String,
+      default: "",
     },
     proffession: {
       type: String,
+      default: "",
     },
     address: {
       type: String,
+      default: "",
     },
     phone: {
       type: String,
+      default: "",
     },
     about: {
       type: String,
+      default: "",
     },
-    website: String,
-    github: String,
+    website: {
+      type: String,
+      default: "",
+    },
+    github: {
+      type: String,
+      default: "",
+    },
+    linkedin: {
+      type: String,
+      default: "",
+    },
     education: [
     {
       school: String,

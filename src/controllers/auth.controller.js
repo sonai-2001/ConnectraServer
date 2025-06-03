@@ -4,6 +4,7 @@ const { registerUser, loginUser } = require("../services/auth.services")
 const  signUp=async (req,res)=>{
         try {
              const data= req.body
+             console.log(req)
              validateSignUp(data)
              
             await  registerUser(data)
@@ -39,7 +40,16 @@ const  signIn=async(req,res)=>{
         }
 }
 
+const logOut=async(req,res)=>{
+    res.clearCookie("token")
+    res.json({
+        success:true,
+        message:"User logged out successfully"
+    })  
+}
+
 module.exports={
     signUp,
-    signIn
+    signIn,
+    logOut
 }
