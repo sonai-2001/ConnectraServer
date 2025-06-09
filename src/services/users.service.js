@@ -1,4 +1,5 @@
 const ConnectionModel = require("../module/Connection");
+const UserModel = require("../module/User");
 const usersAllConnectionsService=async(userId)=>{
         const AllConnections=await ConnectionModel.find({
             $or:[
@@ -69,8 +70,43 @@ const userAllRequestsGetService=async(userId)=>{
      return modifiedConnections
     }
 
+
+    const userAllSuggetionsService=async(userId)=>{
+        //  find  connected users with the logged in user
+
+      const conn =  await ConnectionModel.find({
+            $or:[
+              {senderId:userId},
+              {receiverId:userId}
+            ]
+        })
+
+       const existingConn =new Set() 
+
+
+    //    only unique users
+       conn.forEach((con)=>{
+           existingConn.add(con.senderId)
+           existingConn.add(con.receiverId)
+       })
+
+    //    find the not connected/requested/accepted users
+
+       const suggestions = await UserModel.find({
+            _id:{$nin:Array.from(existingConn)},
+       }).select('_id first_name last_name profileImage')
+
+    //    return the suggestions
+       return suggestions
+
+
+
+
+    }
+
 module.exports={
     usersAllConnectionsService,
     userAllRequestsSendService,
-    userAllRequestsGetService
+    userAllRequestsGetService,
+    userAllSuggetionsService
 }
